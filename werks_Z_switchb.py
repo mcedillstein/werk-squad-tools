@@ -25,7 +25,8 @@ file path, and name, to save the final DataFrame to.
 
 # 'galaxy' is a data table of Final_galinfo.csv file which 
 # is a subset of data from the galaxyinfo.xlsx data from CGM^2
-txt_in = input("Please input Filepath: ")
+txt_in = input('''Please input file path from current directory, to galaxy info. 
+Example (../test/Final_galinfo.csv):''')
 galaxy = pd.read_csv(txt_in)
 galaxy.to_numpy()   
 
@@ -88,7 +89,7 @@ mass_and_friends.remove_columns(['zRR', 'zRR_Err', 'spectype_rr'])
 mass_and_friends = mass_and_friends.to_pandas()
 mass_and_friends['id'] = mass_and_friends['id'].str.decode('utf-8')
 # merges mass table with initial (SFR-containing) one:
-galaxy = pd.merge(galaxy, mass_and_friends, on=['id'], how='right')
+galaxy = pd.merge(galaxy, mass_and_friends, on=['id'], how='outer')
 # sorting out some (more) naming conflicts:
 galaxy.rename(columns={'z_x': 'z'}, inplace=True)
 
@@ -121,7 +122,7 @@ galaxy.rename(columns={'SFR':'SFR_photo'}, inplace=True)
 galaxy.rename(columns={'SFR_WS':'SFR'}, inplace=True)
 
 # Finally we'll save the data to the directory of th eusers liking.
-txt_out = input("Please input filepath and name to save to: ")
+txt_out = input("Please input file path and name to save to: ")
 galaxy.to_csv(txt_out, index=False)
 print('Thank you.')
 
