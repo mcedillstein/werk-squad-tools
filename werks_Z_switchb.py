@@ -45,11 +45,13 @@ galaxy['Distance'] = Distance(galaxy['z'])
 # Calculate Halpha Luminosity, using Halpha_flux and 2.86(Hbeta_flux)
 Hbeta = 2.86*galaxy['Hbeta_flux']
 galaxy['Ha_luminosity'] = Ha_luminosity(galaxy['Distance'],Hbeta)
+galaxy['Ha_luminosity'][(galaxy['Hbeta_LQ'] != 1.0)] = np.nan
 
 gala_Ha = Ha_luminosity(galaxy['Distance'],galaxy['Halpha_flux'])
 galaxy_Ha = gala_Ha > 0.0
 g = galaxy['Ha_luminosity']
 g[galaxy_Ha] = gala_Ha
+galaxy['Ha_luminosity'][((galaxy['Halpha_LQ'] != 1.0) & (galaxy['Hbeta_LQ'] != 1.0))] = np.nan
 
 # Calculating SFR using Halpha luminosity
 galaxy['SFR_WS'] = SFR(galaxy['Ha_luminosity'])
@@ -57,9 +59,11 @@ galaxy['SFR_flag'] = SFR_switchboard(galaxy)
 
 # Calculate 'O3HB'
 galaxy['O3HB'] = O3HB(galaxy['OIII_flux'],galaxy['Hbeta_flux'])
+galaxy['O3HB'][((galaxy['OIII_LQ'] != 1.0) | (galaxy['Hbeta_LQ'] != 1.0))] = np.nan
 
 # Calculate 'N2'
 galaxy['N2'] = N2(galaxy['NII_flux'],galaxy['Halpha_flux'])
+galaxy['N2'][((galaxy['NII_LQ'] != 1.0) | (galaxy['Halpha_LQ'] != 1.0))] = np.nan
 
 # Calculate 'O3N2'
 galaxy['O3N2'] = O3N2(galaxy)
