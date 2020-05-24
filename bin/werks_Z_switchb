@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+
+__requires__ = 'werk-squad-tools'
+
+from werksquadtools import werks_Z_switchb
+
+if __name__ == '__main__':
+    pass
