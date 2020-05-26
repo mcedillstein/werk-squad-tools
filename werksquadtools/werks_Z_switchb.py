@@ -26,12 +26,12 @@ file path, and name, to save the final DataFrame to.
 
 # 'galaxy' is a data table of Final_galinfo.csv file which
 # is a subset of data from the galaxyinfo.xlsx data from CGM^2
-<<<<<<< HEAD:werksquadtools/werks_Z_switchb.py
-txt_in = input('''Please input file path from current directory, to galaxy info.
+
+txt_in = input(
+'''Please input file path from current directory, to galaxy info.
 =======
-txt_in = input('''Please input file path from current directory, to galaxy info. 
->>>>>>> 6f4938f23922241a0f11190043ce04a494864fe0:werks_Z_switchb.py
-Example (../test/Final_galinfo.csv):''')
+Example (../test/Final_galinfo.csv):'''
+)
 galaxy = pd.read_csv(txt_in)
 galaxy.to_numpy()
 
