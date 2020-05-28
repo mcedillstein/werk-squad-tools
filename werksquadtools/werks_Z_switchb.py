@@ -96,7 +96,14 @@ massfilepath = glob(path, recursive=True)
 mass_and_friends = Table.read(massfilepath[-1])
 mass_and_friends.remove_columns(['zRR', 'zRR_Err', 'spectype_rr'])
 mass_and_friends = mass_and_friends.to_pandas()
-mass_and_friends['id'] = mass_and_friends['id'].str.decode('utf-8')
+
+# Get rid of the b'' infront of the column entries
+for i in mass_and_friends.columns:
+    if mass_and_friends[i].dtype == 'O':
+        mass_and_friends[i] = mass_and_friends[i].str.decode('utf-8')
+
+
+#mass_and_friends['id'] = mass_and_friends['id'].str.decode('utf-8')
 # merges mass table with initial (SFR-containing) one:
 galaxy = pd.merge(galaxy, mass_and_friends, on=['id'], how='outer')
 # sorting out some (more) naming conflicts:
